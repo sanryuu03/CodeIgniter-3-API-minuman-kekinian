@@ -1,0 +1,35 @@
+version: "3.8"
+
+services:
+
+  nginx-codeigniter-3-api-minuman-kekinian:
+    container_name: nginx-codeigniter-3-api-minuman-kekinian
+    image: nginx:latest
+    restart: always
+    ports:
+      - protocol: tcp
+        published: 8080
+        target: 80
+    volumes:
+      - ./nginx/conf.d:/etc/nginx/conf.d
+      - ./CodeIgniter3-V3.1.13:/var/www/html
+    networks:
+      - codeigniter-3-api-minuman-kekinian-docker-network
+    depends_on:
+      - codeigniter-3-api-minuman-kekinian-docker
+    links:
+      - codeigniter-3-api-minuman-kekinian-docker
+
+  codeigniter-3-api-minuman-kekinian-docker:
+    container_name: codeigniter-3-api-minuman-kekinian-docker
+    build: .
+    volumes:
+      - ./CodeIgniter3-V3.1.13:/var/www/html
+      - /var/www/html/vendor
+    networks:
+      - codeigniter-3-api-minuman-kekinian-docker-network
+
+networks:
+  codeigniter-3-api-minuman-kekinian-docker-network:
+    name: codeigniter-3-api-minuman-kekinian-docker-network
+    driver: bridge
