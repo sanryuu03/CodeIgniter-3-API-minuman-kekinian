@@ -30,4 +30,72 @@ class Users extends RestController
 			'berisi' => $users
 		], RestController::HTTP_OK);
 	}
+
+	public function index_delete()
+	{
+		$id = $this->delete('id');
+		if (!$id) {
+			$this->response([
+				'error' => true,
+				'message' => 'provide an id'
+			], RestController::HTTP_BAD_REQUEST);
+		}
+
+		$checkUser = $this->users->findUser($id);
+		if (!$checkUser) {
+			$this->response([
+				'error' => true,
+				'message' => 'No users were found'
+			], RestController::HTTP_NOT_FOUND);
+		}
+
+		$this->db->trans_begin();
+		try {
+			$this->users->deleteUser($id);
+			$this->db->trans_commit();
+			$this->response([
+				'error' => false,
+				'message' => 'success',
+				'berisi' => 'user deleted'
+			], RestController::HTTP_OK);
+		} catch (\Exception $e) {
+			//throw $th;
+			$this->db->trans_rollback();
+			$this->response([
+				'error' => true,
+				'message' => $e->getMessage()
+			], RestController::HTTP_BAD_REQUEST);
+		}
+	}
+
+	public function index_post()
+	{
+		$data = [
+			'uuid' => $this->post('uuid'),
+			'name' => $this->post('name'),
+			'email' => $this->post('email'),
+			'password' => $this->post('password'),
+			'post_by' => $this->post('post_by'),
+			'edited_by' => $this->post('edited_by'),
+			'custom_unix_createdAt' => $this->post('custom_unix_createdAt'),
+			'custom_unix_updatedAt' => $this->post('custom_unix_updatedAt')
+		];
+
+		$this->db->trans_begin();
+		try {
+			$post = $this->users->createUser($data);
+			$this->db->trans_commit();
+			$this->response([
+				'error' => false,
+				'message' => 'success',
+				'berisi' => $post
+			], RestController::HTTP_OK);
+		} catch (\Exception $e) {
+			$this->db->trans_rollback();
+			$this->response([
+				'error' => true,
+				'message' => $e->getMessage()
+			], RestController::HTTP_BAD_REQUEST);
+		}
+	}
 }
