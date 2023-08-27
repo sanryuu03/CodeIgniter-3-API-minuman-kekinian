@@ -23,9 +23,9 @@ services:
   codeigniter-3-api-minuman-kekinian-docker:
     container_name: codeigniter-3-api-minuman-kekinian-docker
     build: .
+    image: "codeigniter-3-api-minuman-kekinian-docker:1.0.0"
     volumes:
       - ./CodeIgniter3-V3.1.13:/var/www/html
-      - /var/www/html/vendor
     networks:
       - codeigniter-3-api-minuman-kekinian-docker-network
 

@@ -39,9 +39,19 @@ This is a [CodeIgniter3 V3.1.13](https://codeigniter.com) with [NGINX](https://w
 
       docker image rm IMAGE ID
 
-- masuk ke dalam container
+- masuk ke dalam container nginx
 
       docker exec -i -t nginx-codeigniter-3-api-minuman-kekinian /bin/bash
+
+- masuk ke dalam container projek
+
+      docker exec -i -t codeigniter-3-api-minuman-kekinian-docker /bin/bash
+
+- copy vendors
+
+      composer install --prefer-dist --no-dev --no-scripts --no-progress --no-interaction
+
+      docker cp codeigniter-3-api-minuman-kekinian-docker:/var/www/html/vendor ./CodeIgniter3-V3.1.13
 
 - list file
 

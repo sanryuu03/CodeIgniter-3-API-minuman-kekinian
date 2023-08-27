@@ -1,5 +1,13 @@
 # Release Notes
 
+## v1.0.1 (2023-08-27)
+
+- the name of image built with docker-compose => image: "codeigniter-3-api-minuman-kekinian-docker:1.0.0"
+- DATABASE Connection
+- SQL Users
+- install rest server => composer require chriskacerguis/codeigniter-restserver
+- https://github.com/chriskacerguis/codeigniter-restserver
+
 ## v1.0.0 (2023-08-26)
 
 codeigniter 3 api minuman kekinian docker.
