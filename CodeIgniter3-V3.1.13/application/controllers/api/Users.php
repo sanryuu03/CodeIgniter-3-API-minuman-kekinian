@@ -16,6 +16,18 @@ class Users extends RestController
 	public function index_get()
 	{
 		$users = $this->users->getUsers();
-		var_dump($users);
+
+		if (!$users) {
+			$this->response([
+				'error' => true,
+				'message' => 'No users were found'
+			], RestController::HTTP_NOT_FOUND);
+		}
+
+		$this->response([
+			'error' => false,
+			'message' => 'success',
+			'berisi' => $users
+		], RestController::HTTP_OK);
 	}
 }
