@@ -89,6 +89,53 @@ class Users extends RestController
 				'error' => false,
 				'message' => 'success',
 				'berisi' => $post
+			], RestController::HTTP_CREATED);
+		} catch (\Exception $e) {
+			$this->db->trans_rollback();
+			$this->response([
+				'error' => true,
+				'message' => $e->getMessage()
+			], RestController::HTTP_BAD_REQUEST);
+		}
+	}
+
+	public function index_put()
+	{
+		$id = $this->put('id');
+		if (!$id) {
+			$this->response([
+				'error' => true,
+				'message' => 'provide an id'
+			], RestController::HTTP_BAD_REQUEST);
+		}
+
+		$checkUser = $this->users->findUser($id);
+		if (!$checkUser) {
+			$this->response([
+				'error' => true,
+				'message' => 'No users were found'
+			], RestController::HTTP_NOT_FOUND);
+		}
+
+		$data = [
+			'uuid' => $this->put('uuid'),
+			'name' => $this->put('name'),
+			'email' => $this->put('email'),
+			'password' => $this->put('password'),
+			'post_by' => $this->put('post_by'),
+			'edited_by' => $this->put('edited_by'),
+			'custom_unix_createdAt' => $this->put('custom_unix_createdAt'),
+			'custom_unix_updatedAt' => $this->put('custom_unix_updatedAt')
+		];
+
+		$this->db->trans_begin();
+		try {
+			$post = $this->users->updateUser($data, $id);
+			$this->db->trans_commit();
+			$this->response([
+				'error' => false,
+				'message' => 'success',
+				'berisi' => $post
 			], RestController::HTTP_OK);
 		} catch (\Exception $e) {
 			$this->db->trans_rollback();

@@ -1,5 +1,9 @@
 # Release Notes
 
+## v1.0.4 (2023-08-27)
+
+- update users
+
 ## v1.0.3 (2023-08-27)
 
 - find users

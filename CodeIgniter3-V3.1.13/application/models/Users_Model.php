@@ -23,4 +23,10 @@ class Users_Model extends CI_Model
 		$this->db->insert('users', $data);
 		return $this->db->affected_rows();
 	}
+
+	public function updateUser($data, $id)
+	{
+		$this->db->update('users', $data, ['id' => $id]);
+		return $this->db->affected_rows();
+	}
 }
