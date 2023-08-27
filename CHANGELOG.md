@@ -1,5 +1,9 @@
 # Release Notes
 
+## v1.0.2 (2023-08-27)
+
+- response json
+
 ## v1.0.1 (2023-08-27)
 
 - the name of image built with docker-compose => image: "codeigniter-3-api-minuman-kekinian-docker:1.0.0"
