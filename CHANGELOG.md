@@ -1,5 +1,9 @@
 # Release Notes
 
+## v1.0.5 (2023-08-27)
+
+- Xboba-API-KEY
+
 ## v1.0.4 (2023-08-27)
 
 - update users
